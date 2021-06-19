@@ -121,7 +121,7 @@ submitBtn.addEventListener("click", (event) => {
   // console.log(event);
   event.preventDefault();
   // 2.5 Fetch the OMDb API
-  const url = `http://www.omdbapi.com/?s=${input.value}&apikey=adf1f2d7`;
+  const url = `https://www.omdbapi.com/?s=${input.value}&apikey=adf1f2d7`;
   fetch(url)
     .then(response => response.json())
     .then((data) => {
