@@ -2,54 +2,55 @@
 // Rehearsal
 // //////////////////////
 
-// // 1. Select the button 
-// const button = document.querySelector("#click-me");
+// // 1. Select the button
+// const button = document.getElementById("click-me");
 
-// // 2. Listen to a click
+// // 2. Listen to a click on the button
 // button.addEventListener("click", (event) => {
-//   // 3. Change the DOM, add disabled and new content
-//   event.currentTarget.classList.add("disabled");
+//   // 3. Change the text add a class
 //   event.currentTarget.innerText = "Loading...";
+//   event.currentTarget.classList.add("disabled");
 // });
 
 // //////////////////////
 // HTTP GET request
 // //////////////////////
 
-
-// 1. Select elements (ul, search button, input)
+// 1. Select an element input, button, list
 const input = document.querySelector("#keyword");
-const button = document.querySelector("#submit");
+const submitBtn = document.querySelector("#submit");
 const results = document.querySelector("#results");
 
 // 2. Listen to a click on the button
-button.addEventListener("click", (event) => {
-  event.preventDefault();
-  const url = `http://www.omdbapi.com/?s=${input.value}&apikey=adf1f2d7`
+submitBtn.addEventListener("click", (event) => {
   // console.log(event);
-  // 2.5 Fetch the OMDB API
+  event.preventDefault();
+  // 2.5 Fetch the OMDb API
+  const url = `http://www.omdbapi.com/?s=${input.value}&apikey=adf1f2d7`;
   fetch(url)
     .then(response => response.json())
     .then((data) => {
-      // console.log(data.Search);
-      // 3. Display the movies
+      console.log(data.Search);
+      // 3. Display the movies!
       results.innerHTML = "";
-      data.Search.forEach((movie) => {
+      const movies = data.Search;
+      movies.forEach((movie) => {
         results.insertAdjacentHTML(
-          "beforeend",
-          `<li class='list-inline-item'>
+          'beforeend',
+          `
+          <li class='list-inline-item'>
             <img src="${movie.Poster}" alt="poster" />
             <p>${movie.Title}</p>
-          </li>`);
+          </li>`
+        );
       });
-    })
+    });
 });
 
 
 // //////////////////////
 // HTTP POST request
 // //////////////////////
-
 const searchAlgoliaPlaces = (event) => {
   fetch("https://places-dsn.algolia.net/1/places/query", {
     method: "POST",
